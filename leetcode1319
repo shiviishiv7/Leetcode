@@ -1,0 +1,53 @@
+/*class Solution {
+    public int makeConnected(int n, int[][] connections) {
+        DSU dsu =new DSU(n);
+        int count =0;
+        for(int arr[]:connections){
+            if(dsu.merge(arr[0],arr[1])){
+                count++;
+            }
+        }
+        HashSet<Integer> set =new HashSet<>();
+        for(int i=0;i<n;i++){
+            set.add(dsu.find(dsu.parent[i]));
+        }
+        int size =set.size();
+        size--;
+     //   System.out.println(count+"\t"+size);
+        if(size<=count)return size;
+        else return -1;
+        
+        
+    }
+    static class DSU{
+        int parent[];
+        int rank[];
+        public DSU(int size){
+            parent =  new int[size];
+            rank = new int[size];
+            for(int i=0;i<size;i++){
+                parent[i]=i;
+            }
+        }
+        public boolean merge(int x,int y){
+            int u = find(x);
+            int v = find(y);
+            if(u==v)return true;
+            else {
+                if(rank[u]>rank[v]){
+                    parent[v]=u;
+                }else if(rank[u]<rank[v]){
+                    parent[u]=v;
+                }else {
+                     rank[u]++;
+                     parent[v]=u;
+                }
+                return false;
+            }
+        }
+        public int find(int x){
+            if(parent[x]==x)return x;
+            else return parent[x]= find(parent[x]);
+        }
+    }
+}
